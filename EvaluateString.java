@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class EvaluateString {
-	public static int evaluate(String expression) throws Exception {
+	public static double evaluate(String expression) throws Exception {
 		char[] tokens = expression.toCharArray();
 
 		// Stack for numbers: 'values'
-		Stack<Integer> values = new Stack<Integer>();
+		Stack<Double> values = new Stack<Double>();
 
 		// Stack for Operators: 'ops'
 		Stack<Character> ops = new Stack<Character>();
@@ -70,9 +70,9 @@ public class EvaluateString {
 
 				// There may be more than one
 				// digits in number
-				while (i < tokens.length && tokens[i] >= '0' && tokens[i] <= '9')
+				while (i < tokens.length && (tokens[i] >= '0' && tokens[i] <= '9' || (tokens[i]=='.')))
 					sbuf.append(tokens[i++]);
-				int numberToPush = Integer.parseInt(sbuf.toString());
+				double numberToPush = Double.parseDouble(sbuf.toString());
 				if (negation) {
 					negation = false;
 					numberToPush *= -1;
@@ -145,7 +145,7 @@ public class EvaluateString {
 	// A utility method to apply an
 	// operator 'op' on operands 'a'
 	// and 'b'. Return the result.
-	public static int applyOp(char op, int b, int a) {
+	public static double applyOp(char op, double b, double a) {
 		switch (op) {
 		case '+':
 			return a + b;
@@ -166,14 +166,14 @@ public class EvaluateString {
 		try {
 			return EvaluateString.evaluate(inputString) + "";
 		} catch (Exception e) {
-			return e.getMessage();
+			return "Error " + e.getMessage();
 		}
 		
 	}
 
 	// Driver method to test above methods
 	public static void main(String[] args) {
-		String inputString = "1+1";
+		String inputString = "1.2/-2";
 
 		System.out.println(evaluateExpression(inputString));
 
