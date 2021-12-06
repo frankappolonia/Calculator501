@@ -1,4 +1,3 @@
-package calc;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -31,7 +30,8 @@ public class EvaluateString {
 					}
 
 					continue;
-				} else {
+				} 
+				else {
 					ArrayList<Character> operators = new ArrayList<Character>();
 					operators.add('+');
 					operators.add('-');
@@ -111,6 +111,14 @@ public class EvaluateString {
 				// token, which is an operator.
 				// Apply operator on top of 'ops'
 				// to top two elements in values stack
+
+				if (tokens[i] == '+' && tokens[i+1] == '+' && i+1 < tokens.length)
+					// check for invalid input of double operator ++
+					throw new Exception("Invalid input - Cannot have double operator (++)");
+				if (tokens[i] == '/' && tokens[i+1] == '/' && i+1 < tokens.length)
+					// check for invalid input of double operator //
+					throw new Exception("Invalid input - Cannot have double operator (//)");
+				
 				while (!ops.empty() && hasPrecedence(tokens[i], ops.peek()))
 					values.push(applyOp(ops.pop(), values.pop(), values.pop()));
 
@@ -153,6 +161,11 @@ public class EvaluateString {
 			return a - b;
 		case '*':
 			return a * b;
+		/**case '^':
+			Double _a = a / 1.0;
+			Double _b = b / 1.0;
+
+			return Math.pow(_a, _b); */
 		case '/':
 			if (b == 0)
 				throw new UnsupportedOperationException("Cannot divide by zero");
