@@ -173,7 +173,7 @@ public class EvaluateString {
 
 	// Driver method to test above methods
 	public static void main(String[] args) {
-		String inputString = "1";
+		String inputString = "1+1";
 
 		System.out.println(evaluateExpression(inputString));
 
