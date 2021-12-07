@@ -1,10 +1,5 @@
 
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptEngine;
-import javax.script.ScriptException;
-
 
 public class EventHandling {
 
@@ -35,25 +30,5 @@ public class EventHandling {
 
 }
  
-    
-
-
-
-    
-    /***class CalculateHandlerClass implements EventHandler<ActionEvent>{
-        @Override
-        public void handle(ActionEvent e){
-        }
-        public void addValueToCalc(String s){
-            equation.appendText(s);
-        }
-    }
-
-    class ClearHandlerClass implements EventHandler<ActionEvent>{
-        @Override
-        public void handle(ActionEvent e){
-        }
-    
-    } */
     
 
