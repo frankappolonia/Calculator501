@@ -1,18 +1,30 @@
 
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.input.KeyCode;
+import javafx.scene.control.Label;
 
 public class CalculatorUI extends Application{
 
-    /** Button declarations */
+    /** Object declarations */
     private TextField equation = new TextField();
     private TextField result = new TextField();
+
+    
+    private Label rules = new Label("Constraints: \n\n" +
+    "1. Parentheses are for order \n " +
+    "of operations only, not\n " +
+    "multiplicaiton i.e. \n "+
+    "(8)2 is NOT 16.\n \n"
+    +"2. Cannot do double \n" +
+    "operators like ++,---,// \n \n" +
+    "3. Divide by zero throws error \n \n" +
+    "4. Keybinds work only if \n" +
+    " the button is focused");
 
     private Button btCalculate = new Button("=");
     private Button btClear = new Button("Clr");
@@ -63,6 +75,7 @@ public class CalculatorUI extends Application{
         equation.setMinSize(275, 15);
         result.setMinSize(275, 15);
 
+        gridPane.add(rules, 5, 0, 1, 6);
         gridPane.add(equation, 0, 0, 5, 1);
         gridPane.add(result, 0, 1, 5, 1);
 
@@ -208,7 +221,7 @@ public class CalculatorUI extends Application{
 
 
         /** Stage setting for the GUI */
-        Scene scene = new Scene(gridPane, 300, 470);
+        Scene scene = new Scene(gridPane, 450, 470);
         primaryStage.setTitle("Calculator");
         primaryStage.setScene(scene);
         primaryStage.centerOnScreen();
