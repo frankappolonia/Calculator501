@@ -94,17 +94,26 @@ public class EvaluateString {
 			// Current token is an opening brace,
 			// push it to 'ops'
 			else if (tokens[i] == '(')
-				ops.push(tokens[i]);
+				// Exception for when there is no operator before parentehses ( -> 2+4(7)
+				if (i >  0  && tokens[i-1] != '+' && tokens[i-1] != '-' && tokens[i-1] != '*' && tokens[i-1] != '/' && tokens[i-1] != '^')
+					throw new Exception("operator must come before '('");
+				else
+					ops.push(tokens[i]);
 
 			// Closing brace encountered,
 			// solve entire brace
 			else if (tokens[i] == ')') {
+				// Exception for when there is no operator after parentehses ) -> (9)2
+				if (tokens.length > i + 1 && tokens[i+1] != '+' && tokens[i+1] != '-' && tokens[i+1] != '*' && tokens[i+1] != '/' && tokens[i+1] != '^')
+				throw new Exception("operator must follow ')'");
+
+				// Otherwise, runs while loop 
 				while (ops.peek() != '(')
 					values.push(applyOp(ops.pop(), values.pop(), values.pop()));
 				ops.pop();
 			}
 
-			// Current token is an operator.
+			// If current token is an operator.
 			else if (tokens[i] == '+' || tokens[i] == '-' || tokens[i] == '*' || tokens[i] == '/' || tokens[i] == '^') {
 				// While top of 'ops' has same
 				// or greater precedence to current
@@ -114,13 +123,17 @@ public class EvaluateString {
 
 				if (tokens[i] == '+' && tokens[i+1] == '+' && i+1 < tokens.length)
 					// check for invalid input of double operator ++
-					throw new Exception("Invalid input - Cannot have double operator (++)");
+					throw new Exception("Cannot have double operator (++)");
 				if (tokens[i] == '/' && tokens[i+1] == '/' && i+1 < tokens.length)
 					// check for invalid input of double operator //
-					throw new Exception("Invalid input - Cannot have double operator (//)");
+					throw new Exception("Cannot have double operator (//)");
 				
 				while (!ops.empty() && hasPrecedence(tokens[i], ops.peek()))
+					// while the ops stack isnt empty and the token has presedence over the next
+					// operator at the top of the stack
 					values.push(applyOp(ops.pop(), values.pop(), values.pop()));
+					// pop last two values at the end of values stack and calculate them, adding
+					// result to values stack
 
 				// Push current token to 'ops'.
 				ops.push(tokens[i]);
@@ -178,7 +191,7 @@ public class EvaluateString {
 		try {
 			return EvaluateString.evaluate(inputString) + "";
 		} catch (Exception e) {
-			return "Error " + e.getMessage();
+			return "Invalid Input: " + e.getMessage();
 		}
 		
 	}
