@@ -1,5 +1,6 @@
 
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -9,11 +10,13 @@ import javafx.scene.input.KeyCode;
 
 public class CalculatorUI extends Application{
 
+    /** Button declarations */
     private TextField equation = new TextField();
     private TextField result = new TextField();
 
     private Button btCalculate = new Button("=");
     private Button btClear = new Button("Clr");
+    private Button btDel = new Button("Del");
     private Button btLeftPar = new Button("(");
     private Button btRightPar = new Button(")");
     private Button btExponent = new Button("^");
@@ -34,8 +37,14 @@ public class CalculatorUI extends Application{
     private Button btNine = new Button("9");
     private Button btZero = new Button("0");
 
+
     @Override
     public void start(Stage primaryStage){
+
+        GridPane gridPane = new GridPane();
+
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
 
         /** Button array thats used for setButtonAttributes
          * method below that styles the buttons */
@@ -44,25 +53,20 @@ public class CalculatorUI extends Application{
         btClear, btLeftPar, btRightPar, btExponent};
         
         setButtonAttributes(buttons);
-        
+        btDel.setMinSize(270, 10);
+
         // Makes the textfields uneditable, except for using buttons on GUI
         equation.setEditable(false);
         result.setEditable(false);
-    
 
         /** Geometry Setup of buttons and textField objects in gridpane*/
         equation.setMinSize(275, 15);
         result.setMinSize(275, 15);
 
-        GridPane gridPane = new GridPane();
-        //gridPane.setGridLinesVisible(true);
-
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-                     //column, row
         gridPane.add(equation, 0, 0, 5, 1);
         gridPane.add(result, 0, 1, 5, 1);
 
+                            //column, row
         gridPane.add(btExponent, 1, 3);
         gridPane.add(btLeftPar, 2, 3);
         gridPane.add(btRightPar, 3, 3);
@@ -87,8 +91,8 @@ public class CalculatorUI extends Application{
         gridPane.add(btZero, 2, 7);
         gridPane.add(btPoint, 3, 7);
         gridPane.add(btCalculate, 4, 7);
-        btNine.requestFocus();
 
+        gridPane.add(btDel, 1, 8, 5, 1);
    
         /**Methods attached to each button
          * - Add addValueToCalc adds the the second argument i.e. '9; 
@@ -112,6 +116,9 @@ public class CalculatorUI extends Application{
         btMult.setOnAction(event -> EventHandling.addValueToCalc(equation,"*"));
         btLeftPar.setOnAction(event -> EventHandling.addValueToCalc(equation, "("));
         btRightPar.setOnAction(event -> EventHandling.addValueToCalc(equation, ")"));
+        btPoint.setOnAction(event -> EventHandling.addValueToCalc(equation, "."));
+        btExponent.setOnAction(event -> EventHandling.addValueToCalc(equation, "^"));
+        btDel.setOnAction(event -> EventHandling.addValueToCalc(equation, ""));
 
         btCalculate.setOnAction(event -> EventHandling.eval2(equation, result));
         btClear.setOnAction(event -> EventHandling.clearCalc(equation, result));
@@ -178,11 +185,34 @@ public class CalculatorUI extends Application{
                 btNine.fire();
             }
         });
+        btPlus.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.PLUS)) {
+                btPlus.fire();
+            }
+        });
+        btMinus.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.MINUS)) {
+                btMinus.fire();
+            }
+        });
+        btMult.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ASTERISK)) {
+                btMult.fire();
+            }
+        });
+        btDivide.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.SLASH)) {
+                btDivide.fire();
+            }
+        });
+
 
         /** Stage setting for the GUI */
-        Scene scene = new Scene(gridPane, 450, 460);
+        Scene scene = new Scene(gridPane, 300, 470);
         primaryStage.setTitle("Calculator");
         primaryStage.setScene(scene);
+        primaryStage.centerOnScreen();
+        primaryStage.setResizable(false);
         primaryStage.show();
         
     }
