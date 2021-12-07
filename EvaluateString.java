@@ -105,7 +105,7 @@ public class EvaluateString {
 			}
 
 			// Current token is an operator.
-			else if (tokens[i] == '+' || tokens[i] == '-' || tokens[i] == '*' || tokens[i] == '/') {
+			else if (tokens[i] == '+' || tokens[i] == '-' || tokens[i] == '*' || tokens[i] == '/' || tokens[i] == '^') {
 				// While top of 'ops' has same
 				// or greater precedence to current
 				// token, which is an operator.
@@ -144,6 +144,8 @@ public class EvaluateString {
 	public static boolean hasPrecedence(char op1, char op2) {
 		if (op2 == '(' || op2 == ')')
 			return false;
+		if ((op2 == '^' && op1 == ')') || (op2 == '^' && op1 == '('))
+			return false;
 		if ((op1 == '*' || op1 == '/') && (op2 == '+' || op2 == '-'))
 			return false;
 		else
@@ -161,11 +163,8 @@ public class EvaluateString {
 			return a - b;
 		case '*':
 			return a * b;
-		/**case '^':
-			Double _a = a / 1.0;
-			Double _b = b / 1.0;
-
-			return Math.pow(_a, _b); */
+		case '^':
+			return Math.pow(a, b); 
 		case '/':
 			if (b == 0)
 				throw new UnsupportedOperationException("Cannot divide by zero");

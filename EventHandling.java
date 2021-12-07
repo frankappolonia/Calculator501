@@ -17,11 +17,13 @@ public class EventHandling {
         /** This method is an attempt at using the javascript built in
          * text parser. For some reason it deos not work
          */
-        String s;
         String eqTxt = equation.getText();
-     
-        s = EvaluateString.evaluateExpression(eqTxt);
-        result.appendText(s);
+        String finalResult = EvaluateString.evaluateExpression(eqTxt);
+
+        result.clear();
+        result.appendText(eqTxt + " = ");
+        result.appendText(finalResult);
+        equation.clear();
 }
 
     public static void clearCalc(TextField equation, TextField result){
