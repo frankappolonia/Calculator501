@@ -131,7 +131,7 @@ public class CalculatorUI extends Application{
         btRightPar.setOnAction(event -> EventHandling.addValueToCalc(equation, ")"));
         btPoint.setOnAction(event -> EventHandling.addValueToCalc(equation, "."));
         btExponent.setOnAction(event -> EventHandling.addValueToCalc(equation, "^"));
-        btDel.setOnAction(event -> EventHandling.addValueToCalc(equation, ""));
+        btDel.setOnAction(event -> EventHandling.delOneNumber(equation));
 
         btCalculate.setOnAction(event -> EventHandling.eval2(equation, result));
         btClear.setOnAction(event -> EventHandling.clearCalc(equation, result));

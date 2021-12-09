@@ -27,6 +27,16 @@ public class EventHandling {
         result.clear();
     }
 
+    public static void delOneNumber(TextField equation){
+        /** Deletes 1 element from the equation string */
+        String eqTxt = equation.getText();
+        Integer len = eqTxt.length();
+        String newEq = eqTxt.substring(0, len-1);
+        
+        equation.clear();
+        equation.appendText(newEq);
+    }
+
 
 }
  
