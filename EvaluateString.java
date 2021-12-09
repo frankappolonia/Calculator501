@@ -159,6 +159,11 @@ public class EvaluateString {
 			return false;
 		if ((op2 == '^' && op1 == ')') || (op2 == '^' && op1 == '('))
 			return false;
+		
+		// this is the fix i added 
+		if ((op2 == '*' || op2 == '/' || op2 == '+' || op2 == '-') && (op1 == '^'))
+			return false;
+
 		if ((op1 == '*' || op1 == '/') && (op2 == '+' || op2 == '-'))
 			return false;
 		else
