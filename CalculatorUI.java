@@ -24,11 +24,12 @@ public class CalculatorUI extends Application{
     "operators like ++,---,// \n \n" +
     "3. Divide by zero throws error \n \n" +
     "4. Keybinds work only if \n" +
-    " the button is focused");
+    " the button is focused.\n "+
+    "Use tab key to move focus ");
 
     private Button btCalculate = new Button("=");
     private Button btClear = new Button("Clr");
-    private Button btDel = new Button("Del");
+    private Button btDel = new Button("Backspace");
     private Button btLeftPar = new Button("(");
     private Button btRightPar = new Button(")");
     private Button btExponent = new Button("^");
@@ -199,7 +200,7 @@ public class CalculatorUI extends Application{
             }
         });
         btPlus.setOnKeyPressed(event -> {
-            if (event.getCode().equals(KeyCode.PLUS)) {
+            if (event.isShiftDown() && event.getCode().equals(KeyCode.EQUALS)) {
                 btPlus.fire();
             }
         });
@@ -209,13 +210,44 @@ public class CalculatorUI extends Application{
             }
         });
         btMult.setOnKeyPressed(event -> {
-            if (event.getCode().equals(KeyCode.ASTERISK)) {
+            if (event.isShiftDown() && event.getCode().equals(KeyCode.DIGIT8)) {
                 btMult.fire();
             }
         });
         btDivide.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.SLASH)) {
                 btDivide.fire();
+            }
+        });
+
+        btLeftPar.setOnKeyPressed(event -> {
+            if (event.isShiftDown() && event.getCode().equals(KeyCode.DIGIT9)) {
+                btLeftPar.fire();
+            }
+        });
+        btRightPar.setOnKeyPressed(event -> {
+            if (event.isShiftDown() && event.getCode().equals(KeyCode.DIGIT0)) {
+                btRightPar.fire();
+            }
+        });
+        btPoint.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.PERIOD)) {
+                btPoint.fire();
+            }
+        });
+        btCalculate.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.EQUALS)) {
+                btCalculate.fire();
+            }
+        });
+        btExponent.setOnKeyPressed(event -> {
+            if (event.isShiftDown() && event.getCode().equals(KeyCode.DIGIT6)) {
+                btExponent.fire();
+            }
+        });
+        btDel.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.BACK_SPACE)) {
+                btDel.fire();
             }
         });
 
